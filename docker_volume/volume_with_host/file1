@@ -1,0 +1,2 @@
+sudo docker run -it --name containe3 -v /home/fluper/volume:/app --privileged=true ubuntu /bin/bash  --> creat the file form host
+
