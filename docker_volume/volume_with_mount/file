@@ -1,0 +1,20 @@
+Create the volume in docker 
+
+sudo docker create volume v1
+
+sudo docker volume ls 
+
+Attach the volume to container 
+
+Dockerfile
+
+FROM ubuntu
+
+WORKDIR /app
+
+COPY . . 
+
+CMD ["bash"]
+
+
+sudo docker run -d --mount source=v1,target=/app nginx:latest
