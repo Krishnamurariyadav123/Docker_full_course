@@ -1,0 +1,28 @@
+# Multi-stage build: First stage for building
+FROM node:18 AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and install dependencies
+COPY package.json package-lock.json ./
+RUN npm install --only=production
+
+# Copy source files
+COPY . .
+
+# Second stage: Production environment
+FROM node:18-alpine
+
+WORKDIR /app
+COPY --from=builder /app /app
+
+# Set environment variables
+ENV NODE_ENV=production
+
+# Expose API port
+EXPOSE 5000
+
+# Run the app
+CMD ["node", "server.js"]
+
