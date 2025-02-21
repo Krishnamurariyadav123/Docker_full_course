@@ -1,0 +1,26 @@
+There is most two type of network 
+
+1. Host Network
+2. Bridge Network  --> It is default network assign to any container 
+
+To install ping command to in container 
+
+-- apt install iputils-ping -y
+
+
+To create the custom network for container 
+
+1. sudo docker network create <net_1/ network name >  --> it will create a bridge network. 
+
+2. After that creat the container form your network 
+
+   -- sudo docker run -d --name v2 --network net_1 nginx
+
+3. To connect the docker with local network 
+
+--sudo docker run -d --name v3 --network host nginx
+
+
+ 
+
+
