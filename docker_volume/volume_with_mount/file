@@ -18,3 +18,5 @@ CMD ["bash"]
 
 
 sudo docker run -d --mount source=v1,target=/app nginx:latest
+
+with help of bind ww can syn the data from local system to containe system.
