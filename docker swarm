@@ -1,0 +1,121 @@
+Docker tutorial 
+
+Docker Swarm is a container orchestration tool that allows you to manage and deploy containers across multiple machines in a cluster
+Key Components of Docker Swarm
+
+1. Swarm Cluster :A Swarm Cluster is a group of Docker nodes that work together. It consists of:
+
+Manager Nodes  – Control the cluster and handle scheduling.
+Worker Nodes  – Execute tasks assigned by managers.
+
+2. Nodes : A node is a Docker host (physical or virtual machine) that is part of the Swarm. -- docker swarm init (Initialize a Swarm (on the first manager node)) , -- docker swarm join --token <TOKEN> <MANAGER-IP>:2377 (Join a worker node)
+
+3. Services : A Service defines the desired state for a set of containers. It ensures the right number of replicas are running 
+-- docker service create --name web --replicas 3 -p 8080:80 nginx 
+Deploys 3 instances of Nginx across available worker nodes. 
+
+4. Tasks : A Task is a running instance of a container associated with a service. Each task runs on a specific node.
+
+
+Docker swarm pratical experiment:
+
+1. we have to 1 manager node and 2 and more work node for that we have to install docker in all machine. To init docker manager 
+-- sudo docker swarm init --advertise-addr <3.109.122.44/ manger ip >  after running this command you we get this output 
+--  docker swarm join --token SWMTKN-1-2tkmnjzn75v564c6u2eposy9jlhe6sy9dzaejspd8fswer6kze-8h4u71csi6kv12j9n8qm3d9f9 3.109.122.44:2377 
+
+2. To join the node to docker manager we have install docker on it and run the command with token which is generated.
+
+--  docker swarm join --token SWMTKN-1-2tkmnjzn75v564c6u2eposy9jlhe6sy9dzaejspd8fswer6kze-8h4u71csi6kv12j9n8qm3d9f9 3.109.122.44:2377 
+
+if we lost the token we have to generate again  with this command:
+--  docker swarm join-token worker 
+
+3. to run the container as user to manintai the security of container we have to run with user for that we have to add user in dockergroup 
+-- sudo usermod -aG docker ubuntu
+
+4. Docker service  on different node to communicate and make replica of container.
+-- docker service create --name my-service -p 80:80 nginx --> to create the service
+-- docker service scale my-service=5 -->sclae the service to 5 instance 
+Note if theri is not limite node and you have scale 10 service that each node have distribute their own like (10 scale number / 2 instance = 5 each node ) 
+
+-- docker service create --name my-service --replicas 3 -p 80:80 nginx
+-- doker service ls 
+-- docker service ps <servie_name>
+-- docker inspect inspect --pretty <name>
+
+5. Basic command in docker swarm
+-- sudo docker node ls 
+-- sudo docker rm <servie_name>
+
+
+Docker Stack 
+
+Docker Stack is a feature in Docker Swarm that allows you to deploy and manage multiple services as a single unit using a YAML file
+It has use for Multi-node Swarm, scaling automatica , and use to manage load balancing. 
+we have to writh the yml file for that.
+
+-- docker stack deploy -c docker-compose.yml my-stack --> To deploy a stack
+-- docker stack ls --> running stack 
+-- docker stack ps my-stack  --> To check all running tasks
+-- docker stack rm my-stack  --> To remove a stack 
+
+To update the new code and change in exstign container 
+
+-- docker update service --image <name-of -images> <name-of-service>
+
+
+Docker Drain 
+
+Is used to temporarily disable a node in Docker Swarm. when we have take maintenance of specific node so we put to in drain , Scaling Down, 
+
+-- docker node update --availability drain <NODE_NAME>
+-- docker node ls
+-- docker node update --availability active <NODE_NAME>
+
+Docker Network 
+
+We have to manage the multiple container to we have to use overlay network 
+
+-- docker network create --drive overlay <network-name>
+-- docker service create --replicas 3 --network <net_name>  --name <contianer_name> <image_name>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
