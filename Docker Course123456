@@ -1,0 +1,162 @@
+Docker Course :
+     
+
+2        ,,,                    -----   podman , biluman , scopio   , lima 
+
+
+
+	    --- Set environment variables to prevent interactive prompts
+
+    what is podman 
+
+Devesecops tutorail 
+
+16. Hot Reloading in Docker 
+
+17. Docker Buildx Debug 
+
+18. Continuous Integration - Docker
+
+19. Deploying Containers 
+
+20. Docker Swarm 
+
+21. Nomad Documentation   
+
+
+
+Extra for job   
+
+22. ETL pipeline 
+
+
+
+1. what is docker?
+
+2. How contanier is diffrent from virtual machine
+Ans. it is light weight in nature , and it have very minimal image . It is combination on application dependent and some system library. For examle we have java application se we run the all dependeny in docker file and with the help of multi stage we can minimal the size of images. 
+
+3. Docker life cycle?
+
+Ans. i write the docker file where is has set of command and instruction and dependency. after that i ahve create the image  of it with help of build . after create docker container with help of docekr run command   
+
+4. What is docker component. 
+
+Ans. docker client , docker host/ docker daemon heast of docker , registry.
+
+5. What is diff between docker add and docker copy 
+
+Ans. Docker add commad use to copy the file from specific url location. AND docker copy use to copy the file form the host system  
+
+6. What is diff between CMD and entrypoint
+
+Ans. cmd default command that runs when the container starts and it Can be override. While entrypoint  fixed command that always runs in the container. it Cannot be overridden. 
+
+7. What is networking type in Docker
+
+Ans . 1.Bridge  (it use docker0 eth ) , 2.Overlay ( it use in docker swam and multiple host , it type tunnel type )  3.Host , 4.MacVlan  
+
+8. What is multistage docker. 
+
+Ans. It use distroless image to light weight container images. 
+list of distroless images: 1. scratch (0 MB) , alpine (5 MB) .
+
+9. Can you tell something about docker namespace and control group ?
+
+Ans. namespaces are a way to isolate processes so that multiple containers can run on the same host without interfering with each other. type of naemspace like Network Namespace , PID Namespace , file system  , --name c1  etc. it use for security , isolation.
+
+and control group -- > limit and manage resource usage (CPU, memory, disk, network) for containers. Limit CPU and Memory Usage
+
+10. What is docker multistage build ? 
+
+Ans. A multi-stage build in Docker is a technique that allows you to use multiple stages in a Dockerfile to create a lightweight and optimized final image.
+
+11. Docker Layer Caching ?
+
+Ans. I will restore the data from cache for example when we build image first time it will pull the code from hub and for second time it will pull the code from cache if it will existing there.
+
+12. How to maintain the docker security ?
+
+Ans. To maintain the docker security we have do following thinks 
+     1. Prefer light weigth base image 
+     2. Run the command as non root user. --> (groupadd -r appuser && useradd -r -g appuser -m appuser , -r is use for system user)
+     3. use multistage build 
+     4. use resource quotas --> like set the limite permission to container like cpu , memmory etc, 
+
+13. Can a container restart by itself?
+
+Ans. 1. Off: In this, the container won’t be restarted in case it's stopped or it fails.
+2. On-failure: Here, the container restarts by itself only when it experiences failures not associated with the user. we can define the parameter also that how many time it will br restart --> docker run --restart on-failure:3 my_container
+3. Unless-stopped: Using this policy, ensures that a container can restart only when the command is executed to stop it by the user.
+4. Always: Irrespective of the failure or stopping, the container always gets restarted in this type of policy.
+
+14. Can we use JSON instead of YAML while developing docker-compose file in Docker?
+
+Ans. Yes! It can be used. In order to run docker-compose with JSON, docker-compose -f docker-compose.json up can be used.
+
+15. What are the Differences Between Docker Community Edition (CE) and Docker Enterprise Edition (EE)?
+
+Ans. Docker Community Edition  --> will be peferable for individuals and small-scale projects.It provides the essential features of containerization for free.
+Docker Enterprise Edition -->deals in providing the enterprise needs with advanced features and support for the large-scale projects in production environments. 
+
+16.What Is the Purpose of the "docker checkpoint" Command?
+
+Ans. It use for creation of snapshots of a running container's state , including its file system and the memory. useful for migration, fault tolerance, and quick restarts.  
+
+-- docker run -d --name <mycontainer> ubuntu sleep 1000
+-- docker checkpoint create <mycontainer> { mycheckpoint }
+-- docker checkpoint ls { mycontainer }
+
+To restor the checkpoint container 
+
+-- docker checkpoint create mycontainer mycheckpoint 
+
+-- docker create --name newcontainer --checkpoint mycheckpoint ubuntu --> To restore from a checkpoint into a new container. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Real Envirenment 
+
+1. if you docker daemon is down and your application go down then what you will do for that. 
+
+Ans . It it down i will use podman. i am try to learnpod man 	and it run similar command like docker like podman build , podman run etc.  
+
+2. how will you manage container security. 
+
+Ans. we have distroless image beacuse it not have curl , wget , package manager in it and vey light images. dur this our application have less Vulnerability. we have creat the different bridge network and assign. we can use sync to scna contianer 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
