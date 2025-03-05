@@ -1,2 +1,7 @@
 sudo docker run -it --name containe3 -v /home/fluper/volume:/app --privileged=true ubuntu /bin/bash  --> creat the file form host
 
+
+with this we can directly syn the data with local machin and contianer 
+
+which mean when do change in outside the container it will automatically syn with inside the container.
+
